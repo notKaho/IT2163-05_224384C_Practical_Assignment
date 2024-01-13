@@ -39,15 +39,23 @@ namespace IT2163_05_224384C.Pages
 
                 if (user != null)
                 {
-                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                    var resetLink = Url.Page("/ResetPassword", null, new { area = "Identity", email = Email, token }, Request.Scheme);
+                    try
+                    {
+                        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                        var resetLink = Url.Page("/ResetPassword", null, new { area = "Identity", email = Email, token }, Request.Scheme);
 
-                    // Send the reset password link by email
-                    await SendForgotPasswordAsync(Email, resetLink);
+                        // Send the reset password link by email
+                        await SendForgotPasswordAsync(Email, resetLink);
 
-                    // You may want to add a success message or redirect to a confirmation page
-                    ViewData["EmailSuccess"] = "A reset password link has been sent to your email.";
-                    return Page();
+                        // You may want to add a success message or redirect to a confirmation page
+                        ViewData["EmailSuccess"] = "A reset password link has been sent to your email.";
+                        return Page();
+                    }
+
+                    catch (Exception)
+                    {
+                        return RedirectToPage("/Error", new { statusCode = 500 });
+                    }
                 }
                 else
                 {
