@@ -110,6 +110,8 @@ namespace IT2163_05_224384C.Pages
 
                 if (result.Succeeded)
                 {
+                    result = await userManager.AddToRoleAsync(user, "Member");
+
                     // Generate email confirmation token
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
