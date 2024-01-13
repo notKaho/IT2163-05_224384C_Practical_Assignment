@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using IT2163_05_224384C.Model;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace IT2163_05_224384C.Pages
 {
@@ -32,7 +33,7 @@ namespace IT2163_05_224384C.Pages
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {
+        {         
             try
             {
                 if (ModelState.IsValid)
@@ -92,7 +93,7 @@ namespace IT2163_05_224384C.Pages
                 {
                     From = new MailAddress(senderEmail),
                     Subject = "Reset your password",
-                    Body = $"Click <a href='{WebUtility.HtmlEncode(resetLink)}'>here</a> to reset your password.",
+                    Body = $"Click <a href='{resetLink}'>here</a> to reset your password.",
                     IsBodyHtml = true
                 };
 
