@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using IT2163_05_224384C.Model
+@inject SignInManager<Member> SignInManager
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    // Check session on page load
+    var sessionEmail = HttpContextAccessor.HttpContext.Session.GetString("Email");
+
+    if (SignInManager.IsSignedIn(User) && sessionEmail == null)
+    {
+
+        HttpContextAccessor.HttpContext.Response.Cookies.Delete("MyCookieAuth");
+        HttpContextAccessor.HttpContext.Session.Clear();
+        await SignInManager.SignOutAsync();
+
+        // Redirect to a login page or another page as needed
+        HttpContextAccessor.HttpContext.Response.Redirect("/Login");
+    }
+}

@@ -1,0 +1,30 @@
+﻿@page
+@model IT2163_05_224384C.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Welcome, @ViewData["FullName"]!</h1>
+        @if (!string.IsNullOrEmpty(ViewData["Photo"] as string))
+        {
+            <div class="mt-4">
+                <img src="~/uploads/@ViewData["Photo"]" alt="User Photo" class="img-fluid rounded border" style="max-width: 200px; max-height: 200px; border-width: 2px;" />
+            </div>
+        }
+        <div class="mt-4">
+            <p><strong>Email:</strong> @ViewData["Email"]</p>
+            <p><strong>Credit Card:</strong> @ViewData["CreditCard"]</p>
+            <p><strong>Gender:</strong> @ViewData["Gender"]</p>
+            <p><strong>Delivery Address:</strong> @ViewData["DeliveryAddress"]</p>
+            <p><strong>About Me:</strong> @ViewData["AboutMe"]</p>
+            <p><strong>Phone Number:</strong> @ViewData["PhoneNumber"]</p>
+        </div>
+
+        <div class="mt-4">
+            <a class="btn btn-primary" asp-page="/ChangePassword">Change Password</a>
+        </div>
+        
+    </div>
+</div>

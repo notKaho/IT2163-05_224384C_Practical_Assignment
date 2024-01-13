@@ -1,0 +1,23 @@
+﻿@page "/Error/{statusCode}"
+@model IT2163_05_224384C.Pages.StatusCodeModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1>Error</h1>
+
+<p>Oops! Something went wrong while processing your request.</p>
+<p>Status Code: @Model.StatusCode</p>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMsg))
+{
+    <p>Error Message: @Model.ErrorMsg</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.StackTrace))
+{
+    <p>Stack Trace:</p>
+    <pre>@Model.StackTrace</pre>
+}
+
+<p>Please try again later or contact support if the issue persists.</p>

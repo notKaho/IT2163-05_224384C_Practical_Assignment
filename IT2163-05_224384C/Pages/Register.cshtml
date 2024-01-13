@@ -1,0 +1,143 @@
+﻿@page
+@model IT2163_05_224384C.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+<div class="container mt-5">
+
+	<div class="row justify-content-center align-items-center">
+
+		<div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Register</h1>
+
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.FullName"></label>
+                    <input asp-for="RModel.FullName" class="form-control" />
+                    <span asp-validation-for="RModel.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.CreditCard"></label>
+                    <input asp-for="RModel.CreditCard" class="form-control" />
+                    <span asp-validation-for="RModel.CreditCard" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.Gender"></label>
+                    <select asp-for="RModel.Gender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="RModel.Gender" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.MobileNo"></label>
+                    <input asp-for="RModel.MobileNo" class="form-control" />
+                    <span asp-validation-for="RModel.MobileNo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.DeliveryAddress"></label>
+                    <input asp-for="RModel.DeliveryAddress" class="form-control" />
+                    <span asp-validation-for="RModel.DeliveryAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.Email"></label>
+                    <input asp-for="RModel.Email" class="form-control" />
+                    <span asp-validation-for="RModel.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.Password"></label>
+                    <input asp-for="RModel.Password" type="password" class="form-control" />
+                    <div id="password-strength-feedback" class="text-muted"></div>
+                    <span asp-validation-for="RModel.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.ConfirmPassword"></label>
+                    <input asp-for="RModel.ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="RModel.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.Photo"></label>
+                    <input asp-for="RModel.Photo" type="file" accept=".jpg" />
+                    <div>
+                        <span asp-validation-for="RModel.Photo" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <label asp-for="RModel.AboutMe"></label>
+                    <textarea asp-for="RModel.AboutMe" class="form-control"></textarea>
+                    <span asp-validation-for="RModel.AboutMe" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var passwordInput = document.getElementById("RModel_Password");
+            var feedbackElement = document.getElementById("password-strength-feedback");
+
+            passwordInput.addEventListener("input", function () {
+                var password = passwordInput.value;
+                var strength = calculatePasswordStrength(password);
+                updatePasswordStrengthFeedback(strength);
+            });
+
+            function calculatePasswordStrength(password) {
+                var strength = 0;
+
+                // Check for lowercase letters
+                if (/[a-z]/.test(password)) {
+                    strength += 1;
+                }
+
+                // Check for uppercase letters
+                if (/[A-Z]/.test(password)) {
+                    strength += 1;
+                }
+
+                // Check for numbers
+                if (/\d/.test(password)) {
+                    strength += 1;
+                }
+
+                // Check for special characters
+                if (/[^a-zA-Z\d]/.test(password)) {
+                    strength += 1;
+                }
+
+                return strength;
+            }
+
+            function updatePasswordStrengthFeedback(strength) {
+                var feedbackText = "";
+
+                // Display feedback text only if password length is greater than or equal to 12
+                if (passwordInput.value.length >= 12) {
+                    if (strength <= 2) {
+                        feedbackText = "Weak";
+                    } else if (strength <= 3) {
+                        feedbackText = "Moderate";
+                    } else {
+                        feedbackText = "Strong";
+                    }
+                }
+
+                feedbackElement.textContent = feedbackText;
+            }
+        });
+    </script>
+}
