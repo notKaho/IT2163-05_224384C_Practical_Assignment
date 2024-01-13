@@ -82,7 +82,7 @@ namespace IT2163_05_224384C.Pages
                 {
                     From = new MailAddress(senderEmail),
                     Subject = "Reset your password",
-                    Body = $"<a href='{resetLink}'>Click here to confirm your email</a>",
+                    Body = $"Click <a href='{WebUtility.HtmlEncode(resetLink)}'>here</a> to reset your password.",
                     IsBodyHtml = true
                 };
 
