@@ -33,13 +33,13 @@ namespace IT2163_05_224384C.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await userManager.FindByEmailAsync(Email);
-
-                if (user != null)
+                if (ModelState.IsValid)
                 {
-                    try
+                    var user = await userManager.FindByEmailAsync(Email);
+
+                    if (user != null)
                     {
                         var token = await userManager.GeneratePasswordResetTokenAsync(user);
                         var resetLink = Url.Page("/ResetPassword", null, new { area = "Identity", email = Email, token }, Request.Scheme);
@@ -47,26 +47,28 @@ namespace IT2163_05_224384C.Pages
                         // Send the reset password link by email
                         await SendForgotPasswordAsync(Email, resetLink);
 
-                        // You may want to add a success message or redirect to a confirmation page
+                        // Provide a user-friendly success message
                         ViewData["EmailSuccess"] = "A reset password link has been sent to your email.";
                         return Page();
                     }
-
-                    catch (Exception)
+                    else
                     {
-                        return RedirectToPage("/Error", new { statusCode = 500 });
+                        // Email not found in the Identity system
+                        ModelState.AddModelError("Email", "Email address not found.");
                     }
                 }
-                else
-                {
-                    // Email not found in the Identity system
-                    ModelState.AddModelError("Email", "Email address not found.");
-                }
-            }
 
-            // If there are validation errors or the email is not found, return to the form
-            return Page();
+                // If there are validation errors or the email is not found, return to the form
+                return Page();
+            }
+            catch (Exception)
+            {
+                // Handle exception with a generic error message
+                ViewData["ErrorMessage"] = "An error occurred while processing your request. Please try again later.";
+                return Page();
+            }
         }
+
 
 
         private async Task SendForgotPasswordAsync(string userEmail, string resetLink)
