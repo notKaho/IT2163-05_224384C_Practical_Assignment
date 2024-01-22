@@ -27,11 +27,6 @@ namespace IT2163_05_224384C.Pages
             this.configuration = configuration;
         }
 
-        public void OnGet()
-        {
-            // This is the handler for HTTP GET requests to the page.
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {         
             try

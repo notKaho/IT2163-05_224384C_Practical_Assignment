@@ -45,7 +45,7 @@ namespace IT2163_05_224384C.Pages
                     {
                         var currentTime = DateTime.UtcNow;
 
-                        // Check minimum password age (e.g., cannot change password within 30 minutes from the last change)
+                        // Check minimum password age 
                         var minPasswordAge = TimeSpan.FromMinutes(1);
                         if ((currentTime - user.LastPasswordChangeDate) < minPasswordAge)
                         {
